@@ -290,6 +290,12 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
 
+-- Build & run
+vim.api.nvim_set_keymap('n', '<F5>', [[:w<CR>:!mkdir -p build && cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake .. && cmake --build . && ./$(cat ../CMakeLists.txt | grep -oP 'project\(([^)]+)\)' | grep -oP '(?<=project\()[^)]+')<CR>]], { noremap = true, silent = true })
+
+-- Run
+vim.api.nvim_set_keymap('n', '<F6>', [[:!cd build && ./$(cat ../CMakeLists.txt | grep -oP 'project\(([^)]+)\)' | grep -oP '(?<=project\()[^)]+')<CR>]], { noremap = true, silent = true })
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -516,7 +522,7 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
