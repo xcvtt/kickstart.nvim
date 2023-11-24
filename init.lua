@@ -295,6 +295,9 @@ vim.api.nvim_set_keymap('n', '<F5>', [[:w<CR>:!mkdir -p build && cd build && cma
 
 -- Run
 vim.api.nvim_set_keymap('n', '<F6>', [[:!cd build && ./$(cat ../CMakeLists.txt | grep -oP 'project\(([^)]+)\)' | grep -oP '(?<=project\()[^)]+')<CR>]], { noremap = true, silent = true })
+-- Buffer tabs
+vim.keymap.set('n', '<Tab>', '<Cmd>bnext<CR>')
+vim.keymap.set('n', '<S-Tab>', '<Cmd>bprev<CR>')
 
 
 -- [[ Highlight on yank ]]
@@ -512,6 +515,8 @@ require('which-key').register {
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
+-- bufferline
+require('bufferline').setup()
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

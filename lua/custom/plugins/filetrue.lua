@@ -12,10 +12,13 @@ return {
   config = function ()
     require('neo-tree').setup ({
       close_if_last_window = true,
+      enable_git_status = true,
+      use_libuv_file_watcher=true,
       window = {
         position = "left",
         width = 30
-      }
+      },
+
     })
   end,
 }
